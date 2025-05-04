@@ -1,2 +1,0 @@
-# Code
-codeit-precourse-java
