@@ -63,3 +63,60 @@
 - 생성자도 오버로딩 가능
 
 ### this
+- 메소드에서 현재 인스턴스를 가리키는 역할
+- 현재 클래스의 생성자로 사용 가능
+  - Before
+  ```java
+  public Person(String name) {
+      this.name = name
+      age = 12;
+      cashAmount = 0;
+  }
+  
+  public Person(String name, int age) {
+      this.name = name;
+      this.age = age;
+      cashAmount = 0;
+  }
+  
+  public Person(String name, int age, int cashAmount) {
+      if (age < 0) {
+          this.age = 12;
+      } else {
+          this.age = age;
+      }
+  
+      if (cashAmount < 0) {
+          this.cashAmount = 0;
+      } else {
+          this.cashAmount = cashAmount;
+      }
+      this.name = name;
+  }
+  
+  ```
+  - After: 파라미터가 많은 생성자를 파라미터가 적은 쪽에서 호출
+    ```java
+    public Person(String name) {
+        this(name, 12, 0); // 12살을 기본 나이로 설정, 초기 현금 보유액은 0원.
+    }
+    
+    public Person(String name, int age) {
+        this(name, age, 0); // 초기 현금 보유액은 0원.
+    }
+    
+    public Person(String name, int age, int cashAmount) {
+        if (age < 0) {
+            this.age = 12;
+        } else {
+            this.age = age;
+        }
+    
+        if (cashAmount < 0) {
+            this.cashAmount = 0;
+        } else {
+            this.cashAmount = cashAmount;
+        }
+        this.name = name;
+    }
+    ```

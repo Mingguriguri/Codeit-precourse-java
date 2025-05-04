@@ -6,26 +6,29 @@ public class Person {
     private int cashAmount;
     private BankAccount account;
 
-    public Person(String pName, int pAge) {
-        if (pAge < 0) {
-            pAge = 12;
-        }
-        name = pName;
-        age = pAge;
-        cashAmount = 0; // 정수형의 기본 값은 0이므로, 이 부분은 없어도 됨
+    public Person(String name) {
+        this(name, 12, 0); // 12살을 기본 나이로 설정, 초기 현금 보유액은 0원.
     }
 
-    public Person(String pName, int pAge, int pCashAmount) {
-        if (pAge < 0) {
-            pAge = 12;
-        }
-        if (pCashAmount < 0) {
-            pCashAmount = 0;
-        }
-        name = pName;
-        age = pAge;
-        cashAmount = pCashAmount;
+    public Person(String name, int age) {
+        this(name, age, 0); // 초기 현금 보유액은 0원.
     }
+
+    public Person(String name, int age, int cashAmount) {
+        if (age < 0) {
+            this.age = 12;
+        } else {
+            this.age = age;
+        }
+
+        if (cashAmount < 0) {
+            this.cashAmount = 0;
+        } else {
+            this.cashAmount = cashAmount;
+        }
+        this.name = name;
+    }
+
     public void setName(String newName){
         this.name = newName;
     }

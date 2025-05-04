@@ -4,24 +4,27 @@ public class BankAccount {
     private int balance;
     private Person owner;
 
-    public BankAccount(int pBalance) {
-        if(pBalance < 0) {
-            pBalance = 0;
+    public BankAccount(int balance) {
+        if(balance < 0) {
+            balance = 0;
         }
-        balance = pBalance;
+        else {
+            this.balance = balance;
+        }
     }
 
-    public BankAccount(Person pOwner) {
-        balance = 0;
-        owner = pOwner;
+    public BankAccount(Person owner) {
+        this(0, owner);
     }
 
-    public BankAccount(int pBalance, Person pOwner) {
-        if(pBalance < 0) {
-            pBalance = 0;
+    public BankAccount(int balance, Person owner) {
+        if (balance < 0) {
+            this.balance = 0;
         }
-        balance = pBalance;
-        owner = pOwner;
+        else {
+            this.balance = balance;
+        }
+        this.owner = owner;
     }
 
 
