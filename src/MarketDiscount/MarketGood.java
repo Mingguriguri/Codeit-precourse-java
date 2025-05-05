@@ -1,8 +1,10 @@
 package MarketDiscount;
 
 public class MarketGood {
-    private String name;
-    private int retailPrice;
+    // 변수 안전하게 만들기 예시
+    // : name과 retailPrice를 변경할 수 없도록 public final로 변경 & getter와 setter 제거
+    public final String name;
+    public final int retailPrice;
     private int discountRate;
 
     // 생성자 1
@@ -23,21 +25,9 @@ public class MarketGood {
     }
 
     // Getter / Setter
-    public String getName() {
-        return name;
-    }
-    public int getRetailPrice() {
-        return retailPrice;
-    }
+
     public int getDiscountRate() {
         return discountRate;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setRetailPrice(int retailPrice) {
-        this.retailPrice = retailPrice;
     }
     public void setDiscountRate(int discountRate) {
         this.discountRate = discountRate;
