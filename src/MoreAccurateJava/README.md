@@ -90,3 +90,128 @@
   - `final` 변수임
   - 처음에 배열의 크기가 주어질 때 값이 정해지고 그 후에 값을 바꿀 수가 없음
   - 새로운 값을 지정해주려고 하면 오류남
+
+## 05. 코드 안전하게 만들기
+> **예외처리**: `try-catch`
+```java
+try {
+  ...
+  // 오류를 발생시킬 수 있는 코드
+} catch (Exception e) {
+  ...
+  // 오류가 발생한 경우 해결
+}
+```
+
+## 06. 인스턴스 변수 vs 클래스 변수
+### **인스턴스 변수**
+- 각 인스턴스마다 있는 변수
+- 예시: count. Person 클래스 내 count 인스턴스 변수가 있을 때 이 변수는 아래처럼 매번 count를 업데이트해야 함
+  ```java
+  public class Person {
+      int count;
+  }
+  public static void main(String[] args) {
+      Person p1 = new Person();
+      p1.count++;
+  
+      Person p2 = new Person();
+      p1.count++;
+      p2.count = p1.count;
+  
+      Person p3 = new Person();
+      p1.count++;
+      p2.count++;
+      p3.count = p2.count;
+  }
+  ```
+### **클래스 변수**
+- 인스턴스에 해당되지 않고 **클래스에 해당**하는 변수
+- static 키워드 사용
+- 예시
+  ```java
+  public class Person {
+      static int count;
+  }
+  public static void main(String[] args) {
+      Person p1 = new Person();
+      Person.count++;
+  
+      Person p2 = new Person();
+      Person.count++;
+  
+      Person p3 = new Person();
+      Person.count++;
+  }
+  ```
+- 조금 더 간단하게 새로운 인스턴스 생성할 때마다 Person.count++
+  ```java
+  public class Person {
+      static int count;
+  
+      public Person() {
+          count++;
+      }
+  }
+  public static void main(String[] args) {
+    Person p1 = new Person();
+    Person p2 = new Person();
+    Person p3 = new Person();
+    Person p4 = new Person();
+  
+    System.out.println(Person.count);
+  }
+  ```
+### **상수**
+- final도 상수이지만
+- 상수를 더 상수답게 쓰려면 static과 함께 쓰는 것이 좋음
+- 상수 != 인스턴스. (한 값만 저장)
+- 이름: 모두 대문자 & `_`로 구분
+```java
+public class CodeitConstants {
+    public static final double PI = 3.141592653589793;
+    public static final double EULERS_NUMBER = 2.718281828459045;
+    public static final String THIS_IS_HOW_TO_NAME_CONSTANT_VARIABLE = "Hello";
+
+    public static void main(String[] args) {
+        System.out.println(CodeitConstants.PI + CodeitConstants.EULERS_NUMBER);
+    }
+}
+```
+
+## 07. 인스턴스 메소드 vs 클래스 메소드
+### 클래스 메소드
+- 클래스 변수: 클래스에 속한 변수
+- 클래스 메소드: 클래스에 속한 메소드
+
+> 인스턴스 메소드 vs 클래스 메소드
+- 인스턴스 메소드: 인스턴스에 속한 것이기에 **반드시 인스턴스를 생성**해야 사용 가능
+- 클래스 메소드: 클래스에 속한 것이기에 **인스턴스 생성 없이도 사용 가능**
+
+> 예시:
+- `Math` 클래스: abs(), max(), random() 메소드
+- `main` 메소드 (static 키워드)
+```java
+public static void main(String[] args) {
+    ...
+}
+```
+
+### 언제 사용?
+- 생성된 인스턴스가 하나도 없더라도 이 메소드를 호출하는 게 말이 되나요?
+  - **`YES`** 라면: 클래스 메소드. 즉, `static` 메소드 사용
+
+## [실습] 단위 변환기
+> 단위 변환기를 만들어봅시다.
+> 
+> 우리가 만들 단위 변환기는 인스턴스를 생성하지 않고도 사용할 수 있도록, 클래스 변수와 클래스 메소드로만 이루어져 있습니다. 언제든 간편하게 사용할 수 있는 도구를 만드는 거죠!
+- **조건**
+  - 상수 만들기(KILOGRAMS_PER_POUND, POUNDS_PER_KILOGRAM, CENTIMETERS_PER_INCH, INCHES_PER_CENTIMETER)
+  - 클래스 메소드 만들기
+- **보너스**
+  - `UnitConverter` 클래스는 인스턴스를 만들지 않고, `static`한 방법으로만 사용하고 싶습니다. 
+  - 이런 경우, 생성자를 `private`으로 선언하여 인스턴스 생성을 막을 수 있습니다.
+  - `UnitConverter`의 생성자를 `private`으로 만들어 외부에서 인스턴스 생성을 못 하게 막아주세요!
+
+- `Main.java`: 테스트용 코드
+- `UnitConverter.java`: 작성해야 할 코드
